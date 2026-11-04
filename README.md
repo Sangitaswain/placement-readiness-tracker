@@ -1,18 +1,18 @@
- Placement Readiness Tracker
+# Placement Readiness Tracker
 
 ## Purpose
 
-This Python command-line project stores student practice-test scores, calculates averages and grades, identifies the top scorer, and lists students who need extra practice. A separate program solves the runner-up score problem.
+This Python command-line project records placement practice-test scores, calculates averages and grades, identifies the top scorer, and lists students who need extra practice. A separate program solves the runner-up score problem.
 
 ## Files
 
-- `tracker.py`: Student data, input validation, result functions, and formatted output.
+- `tracker.py`: Student records, input validation, required functions, and formatted results.
 - `runner_up.py`: Second-highest distinct score solution using standard input/output.
-- `TEST_CASES.md`: Runner-up inputs, expected outputs, and observed outputs.
+- `TEST_CASES.md`: Test inputs, expected outputs, and actual outputs from three runs.
 
 ## Requirements
 
-Python 3 and Git. The Python programs use only the standard library; no external packages are needed.
+Python 3 and Git. No external Python packages are required.
 
 ## Run the tracker
 
@@ -20,21 +20,21 @@ Python 3 and Git. The Python programs use only the standard library; no external
 python3 tracker.py
 ```
 
-The program starts with five sample students and asks for one more. Names and roll numbers are strings. Scores are converted to floats. Each score must be between 0 and 100 inclusive; invalid input is rejected using a loop.
+The program starts with five sample students and asks for one additional student. Names and roll numbers are strings. Scores are converted to floats and must be between 0 and 100 inclusive. A loop rejects out-of-range values, and non-numeric input is handled without ending the program.
 
-Example entries:
+Sample accepted entries:
 
 ```text
-Add one student
-Enter name: varun
-Enter roll number: CSE006
-Enter aptitude score (0-100): 12
-Enter verbal score (0-100): 34
-Enter coding score (0-100): 56
-
+Name: Varun
+Roll number: CSE006
+Aptitude: 100
+Verbal: 72
+Coding: 90
 ```
 
-The result table will include:
+During validation testing, aptitude 101 and coding abc were rejected before the accepted values above were entered.
+
+Sample output:
 
 ```text
 PLACEMENT READINESS RESULTS
@@ -45,13 +45,14 @@ CSE002     Punit             65.0     70.0     75.0     70.00  B
 CSE003     Tom               45.0     50.0     55.0     50.00  C
 CSE004     Neha              20.0     30.0     40.0     30.00  Needs practice
 CSE005     Zoya              90.0     95.0     85.0     90.00  A
-CSE006     varun             12.0     34.0     56.0     34.00  Needs practice
+CSE006     Varun            100.0     72.0     90.0     87.33  A
 
 Top scorer: Zoya (CSE005)
 Highest average: 90.00
 
 Students needing practice (average below 40):
 - Neha (CSE004): 30.00
+```
 
 ## Grade boundaries
 
@@ -60,7 +61,7 @@ Students needing practice (average below 40):
 - C: 40 <= average < 60.
 - Needs practice: average < 40.
 
-`top_scorer(students)` returns the student dictionary. If averages tie, it returns the first student with the highest average. `needs_practice(students)` uses the default limit of 40.
+`average(student)` returns the mean of three scores. `top_scorer(students)` returns the student dictionary with the highest average; the first highest record is returned if averages tie. `needs_practice(students)` demonstrates the default limit of 40.
 
 ## Run the runner-up solution
 
@@ -68,7 +69,7 @@ Students needing practice (average below 40):
 python3 runner_up.py
 ```
 
-Enter `n` on the first line and all `n` scores on the next line.
+Enter n on the first line and all n scores on the second line. The program waits for input without printing a prompt.
 
 Sample input:
 
@@ -83,13 +84,22 @@ Sample output:
 85
 ```
 
-The solution removes duplicates with a set, sorts the distinct scores in ascending order, and prints the second-last value. Input follows the assignment constraints: 2 <= n <= 100, scores between 0 and 100, and at least two distinct scores.
+The solution removes duplicates with a set, sorts the distinct scores in ascending order, and selects the second-last value. Valid input satisfies 2 <= n <= 100, scores from 0 to 100, and at least two distinct scores.
+
+To supply the sample input automatically:
+
+```bash
+printf '5\n70 85 85 60 90\n' | python3 runner_up.py
+```
+
+## Testing
+
+The three own test cases in `TEST_CASES.md` returned 90, 0, and 20, matching their expected outputs. They cover a repeated maximum, zero with duplicates, and minimum input size.
 
 ## Data storage
 
-Student data is held in memory for one run. Running the program again starts from the original five records.
+Student records are stored in memory for one execution. Starting the tracker again restores the original five sample records.
 
 ## AI use declaration
 
-I used ChatGPT to understand the assignment, draft the Python programs and report text, and plan testing and Git documentation.
-````
+I used ChatGPT for concept clarification, code drafting and debugging, and report preparation, and Claude to review the submission.

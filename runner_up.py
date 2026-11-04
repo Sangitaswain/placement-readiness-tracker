@@ -9,8 +9,8 @@ def runner_up_score(scores):
 
 def main():
     # Valid assignment input has at least two distinct scores, all in 0-100.
-    n = int(input("Enter number of scores: "))
-    scores = list(map(int, input("Enter scores separated by spaces: ").split()))
+    n = int(input())
+    scores = list(map(int, input().split()))
 
     if len(scores) != n:
         raise ValueError("The number of scores must match n.")
@@ -21,4 +21,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
